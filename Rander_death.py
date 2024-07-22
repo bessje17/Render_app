@@ -103,7 +103,7 @@ def update_graph(start_date, end_date, sexe_values, age_group_values):
         if age_group == 'All':
             continue
 
-        if 'Total' in sexe_values:
+        if 0 in sexe_values:
             df_sub_data_total = df_sub_data[df_sub_data['tranche_age'] ==
                                             age_group].groupby('date_mort',
                                                                as_index=False
