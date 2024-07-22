@@ -19,6 +19,7 @@ data['Saison'] = data.date_mort.dt.month.apply(determine_season)
 
 # 2. Dash layout
 app = dash.Dash(__name__)
+server = app.server
 app.layout = html.Div([
     html.H1("Visualisation des décès quotidiens toutes causes"),
     dcc.DatePickerRange(
