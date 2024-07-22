@@ -137,7 +137,8 @@ def update_graph(start_date, end_date, sexe_values, age_group_values):
                 mode='lines',
                 name=f'Femme ({age_group})'
             ))
-  if len(fig.data) == 1:
+
+    if len(fig.data) == 1:
         fig.add_trace(go.Scatter(
             x=[None],  # Pas de données visibles
             y=[None],
@@ -145,7 +146,6 @@ def update_graph(start_date, end_date, sexe_values, age_group_values):
             name='',  # Nom pour la légende
             line=dict(width=0)  # Ligne invisible
         ))
-
     fig.update_layout(title='Nombre de décès par date', xaxis_title='Date',
                       yaxis_title='Nombre quotidien de décès')
 
