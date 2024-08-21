@@ -19,6 +19,7 @@ data['Saison'] = data.date_mort.dt.month.apply(determine_season)
 
 # 2. Dash layout
 app = dash.Dash(__name__)
+server = app.server
 app.layout = html.Div([
     html.H1("Visualisation des décès quotidiens toutes causes"),
     dcc.DatePickerRange(
@@ -102,7 +103,7 @@ def update_graph(start_date, end_date, sexe_values, age_group_values):
         if age_group == 'All':
             continue
 
-        if 'Total' in sexe_values:
+        if 0 in sexe_values:
             df_sub_data_total = df_sub_data[df_sub_data['tranche_age'] ==
                                             age_group].groupby('date_mort',
                                                                as_index=False
@@ -137,6 +138,14 @@ def update_graph(start_date, end_date, sexe_values, age_group_values):
                 name=f'Femme ({age_group})'
             ))
 
+    if len(fig.data) == 1:
+        fig.add_trace(go.Scatter(
+            x=[None],  # Pas de données visibles
+            y=[None],
+            mode='lines',
+            name='',  # Nom pour la légende
+            line=dict(width=0)  # Ligne invisible
+        ))
     fig.update_layout(title='Nombre de décès par date', xaxis_title='Date',
                       yaxis_title='Nombre quotidien de décès')
 
